@@ -1,18 +1,17 @@
-
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class HeapPQueue implements PQueue{
 
     private static int[] list;
-    private int size = -1;
+    private int size;
 
 
     public HeapPQueue(int[] items) {
         //your implementation
         bottom_up(items);
-    }
-    @Override
-    public int size() {
-        return list.length;
+        size = -1;
     }
 
     @Override
@@ -25,12 +24,21 @@ public class HeapPQueue implements PQueue{
 
     @Override
     public void insert(int key) {
-        size = size + 1;
+
+        size++;
+
         list[size] = key;
+
 
         //heaping up to maintain
         //heap property
         heapup(size);
+    }
+
+
+    @Override
+    public int size() {
+        return size + 1;
     }
 
     @Override
@@ -51,8 +59,8 @@ public class HeapPQueue implements PQueue{
     }
 
     private void bottom_up(int[] items) {
-    // your impelementation
-    // invoke this method when you construct a heap given an array of keys
+        // your impelementation
+        // invoke this method when you construct a heap given an array of keys
 
         int startIndex = (items.length / 2) - 1;
 
@@ -62,8 +70,8 @@ public class HeapPQueue implements PQueue{
         }
     }
     private void heapdown(int i) {
-    // your impelementation
-    // invoke this method when you remove the key of the highest priority
+        // your impelementation
+        // invoke this method when you remove the key of the highest priority
 
         int maxIndex = i;
 
@@ -85,8 +93,8 @@ public class HeapPQueue implements PQueue{
         }
     }
     private void heapup(int i) {
-    // your impelementation
-    // invoke this method when you insert a new key into this heap
+        // your impelementation
+        // invoke this method when you insert a new key into this heap
 
         while(i > 0 && list[parent(i)] < list[i]) {
             //swapping parent node and current node
@@ -142,23 +150,35 @@ public class HeapPQueue implements PQueue{
 
     public static void main(String[] args) {
 
-        list = new int[]{1, 3, 5, 4, 6, 13, 10, 9, 8, 15, 17};
-//        list = new int[]{};
+        list = new int[50];
         HeapPQueue queue = new HeapPQueue(list);
 
         System.out.print("Priority Queue : ");
 
 
 
-//        queue.insert(23);
-//        queue.insert(33);
-//        queue.insert(47);
+        queue.insert(23);
+        queue.insert(33);
+        queue.insert(47);
+        queue.insert(1);
+        queue.insert(3);
+        queue.insert(5);
+        queue.insert(4);
+        queue.insert(6);
+        queue.insert(13);
+        queue.insert(10);
+        queue.insert(9);
+        queue.insert(8);
+        queue.insert(15);
+        queue.insert(17);
 
-//        for(int i = 0; i < list.length; ++i) {
-//            System.out.print(list[i] + " ");
-//        }
 
-//        System.out.println("\n");
+        for(int i = 0;i <= queue.size() - 1; i++)
+        {
+            System.out.print(list[i] + " ");
+        }
+
+        System.out.println("\n");
 //        System.out.println();
 //        System.out.println(queue.size());
 //        System.out.println();
@@ -166,11 +186,12 @@ public class HeapPQueue implements PQueue{
 //        System.out.println();
 //        System.out.println(queue.min());
 //        System.out.println();
-//        System.out.println(queue.removeMin());
-//
-//        for(int i = 0; i < list.length; ++i) {
-//            System.out.print(list[i] + " ");
-//        }
+        System.out.println(queue.removeMin());
+
+        for(int i = 0;i <= queue.size() - 1; i++)
+        {
+            System.out.print(list[i] + " ");
+        }
 
     }
 
