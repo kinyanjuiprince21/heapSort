@@ -1,6 +1,3 @@
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 public class HeapPQueue implements PQueue{
 
@@ -16,10 +13,7 @@ public class HeapPQueue implements PQueue{
 
     @Override
     public boolean isEmpty() {
-        if(size() == 0) {
-            return true;
-        }
-        return false;
+        return size() == 0;
     }
 
     @Override
@@ -91,6 +85,7 @@ public class HeapPQueue implements PQueue{
             swap(i, maxIndex);
             heapdown(maxIndex);
         }
+
     }
     private void heapup(int i) {
         // your impelementation

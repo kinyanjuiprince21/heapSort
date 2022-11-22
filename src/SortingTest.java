@@ -22,47 +22,74 @@ public class SortingTest {
         quickSort(output2);
         endTime = System.currentTimeMillis();
         System.out.println("Quicksort takes: " + (endTime - startTime) + " ms");
+
+    }
+
+    private static void printArray(int[] arr)
+    {
+        for (int i = 0; i < arr.length; ++i)
+            System.out.print(arr[i] + " ");
+        System.out.println();
     }
     private static void heapSort(int[] items) {
         /* your implementation */
-        int length = items.length;
 
-        for(int i = length / 2 - 1; i >= 0;i--) {
-            heapFy(items,items.length, i);
-        }
+        int heap_size = items.length - 1;
 
-        for(int i = length - 1; i > 0;i--) {
+        buildHeap(items);
+
+        for(int i = (items.length - 1); i > 0; i--) {
             int temp = items[0];
             items[0] = items[i];
             items[i] = temp;
 
-            heapFy(items,items.length,0);
+            heap_size = heap_size - 1;
+            heapFy(items, 0, heap_size);
         }
     }
 
-    public static void heapFy(int[] items, int length, int rootIndex) {
-        int largest = rootIndex; // Initialize largest as root
-        int left = 2 * rootIndex + 1;
-        int right = 2 * rootIndex + 2;
+    //returns left child index of given index
+    private static int leftChild(int child) {
+        return (child * 2);
+    }
 
+    private static int rightChild(int child) {
+        return (child * 2 + 1);
+    }
 
-        if (left < length && items[left] > items[largest])
+    public static void heapFy(int[] items, int index, int heap_size) {
+        int largest = index;
+        int left = leftChild(index);
+        int right = rightChild(index);
+
+        if( left <= heap_size && items[left] > items[index]) {
             largest = left;
+        }
 
-
-        if (right < length && items[right] > items[largest])
+        if(right <= heap_size && items[right] > items[largest]) {
             largest = right;
+        }
 
+        if(largest != index) {
+            //exchanging items[index] with items[largest]
+            int temp = items[index];
+            items[index] = items[largest];
+            items[largest] = temp;
 
-        if (largest != rootIndex) {
-            int swap = items[rootIndex];
-            items[rootIndex] = items[largest];
-            items[largest] = swap;
-
-            // Recursively heapFy
-            heapFy(items, length, largest);
+            heapFy(items, largest, heap_size);
         }
     }
+
+    private static void buildHeap(int[] items) {
+
+        int heap_size = items.length - 1;
+
+        for(int i = ((items.length - 1) / 2); i >= 0; i--) {
+            heapFy(items,i,heap_size);
+        }
+    }
+
+
     private static void quickSort(int[] items) {
         /* your implementation */
         quickSort(items,0, items.length - 1);
